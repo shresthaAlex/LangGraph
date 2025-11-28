@@ -1,0 +1,4 @@
+Refactor the code for better organization by  breaking  down the
+monolithic langgraph_database_backend.py into auth.py, database.py, and agent.py.
+then update langgraph_database_backend.py to be a thin layer importing from
+these new modules and adjust app.py's imports accordingly.
