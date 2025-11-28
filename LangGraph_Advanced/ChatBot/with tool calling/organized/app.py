@@ -14,7 +14,7 @@ import uuid
 import json
 
 
-MAX_AI_SEARCHES = 50
+MAX_AI_SEARCHES = 5
 
 # ---------------- Cookie Setup ----------------
 cookies = EncryptedCookieManager(

@@ -1,0 +1,5 @@
+mcp in simple term advanced tool
+
+only change async in code of tool and change tool code with mcp servers
+
+making mcp client
