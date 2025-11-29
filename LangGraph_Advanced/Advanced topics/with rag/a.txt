@@ -1,0 +1,3 @@
+> Treating RAG as another tool 
+simplifies the integration 
+into complex agentic AI applications .
