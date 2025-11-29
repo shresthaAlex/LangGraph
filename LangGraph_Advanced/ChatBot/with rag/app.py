@@ -6,7 +6,7 @@ import asyncio
 import os
 import shutil
 
-from langgraph_mcp_tool_backend import (
+from langgraph_mcp_tool_rag_backend import (
     chatbot,
     load_conversation_from_checkpointer, # Load from agent state
     store_conversation,
@@ -25,7 +25,7 @@ from langgraph_mcp_tool_backend import (
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage, AIMessageChunk
 from agent import VECTORSTORE_DIR # Import the directory where vectorstores are saved
 
-MAX_AI_SEARCHES = 100
+MAX_AI_SEARCHES = 10
 
 # ---------------- Cookie Setup ----------------
 cookies = EncryptedCookieManager(
@@ -375,11 +375,14 @@ if user_input:
 
         st.session_state['message_history'].append({'role':'assistant','content':ai_message})
         
+        thread_id_str = str(st.session_state['thread_id'])
+        thread_name = st.session_state['thread_names'].get(thread_id_str, "New Conversation")
+
         run_async(store_conversation(
-            str(st.session_state['thread_id']),
+            thread_id_str,
             current_username,
             st.session_state['message_history'],
-            st.session_state['thread_names'][str(st.session_state['thread_id'])]
+            thread_name
         ))
         
         st.rerun()
