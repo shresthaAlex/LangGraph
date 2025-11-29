@@ -146,7 +146,7 @@ Also I will adapt to new breakthroughs and frameworks in the space.
 - [✅] Module 2: LangGraph fundamentals
 - [✅] Module 3: Advanced LangGraph
 - [ ]  ...
-- [x] Final Capstone App 🚀  (ongoing)
+- [✅] Final Capstone App 🚀  (Almost)
 
 ---
 
