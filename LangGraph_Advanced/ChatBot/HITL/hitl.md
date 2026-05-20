@@ -38,14 +38,6 @@ As a result, HITL transforms potentially error-prone autonomous systems into rel
 
 ## Common HITL Integration Patterns
 
-HITL appears in four main categories within agentic AI systems:
-
-Pattern
-
-Description
-
-Example
-
 **Action Approval** (Most Common)
 
 Pause before crucial actions for human yes/no.
@@ -78,9 +70,9 @@ LangGraph implements HITL via **interrupt** and **command** functions in a graph
 
 In the **post** node (pseudo-code):
 
-plaintextCopy
 
-```
+
+```python
 decision = interrupt()  # Pauses graph
 if decision == "yes":
     post_tweet()
@@ -105,15 +97,14 @@ This pause-resume loop (multiple invokes for multiple inputs) ensures human cont
 
 Simplest demo: Linear graph (start → **chat** node → end) where user asks LLM a question (e.g., "Explain gradient descent"), but chat node interrupts for unnecessary approval.
 
-**Key Code Elements** (Jupyter notebook):
+**Key Code Elements** :
 
 -   Define LLM, **ChatState**.
     
 -   **chat** node:
     
-    plaintextCopy
-    
-    ```
+   
+    ```python
     interrupt({
         "type": "approval",
         "reason": "question_approval",
@@ -143,7 +134,7 @@ This illustrates the core interrupt-command loop.
 
 Realistic chatbot with tools: **get_stock_price** (API fetch) and **purchase_stocks** (dummy buy)—HITL in purchase tool for approval.
 
-**Without HITL** (demo): User says "purchase 10 stocks" (after price query) → Auto-buys without confirmation, risking errors/misinterpretation.
+**Without HITL** : User says "purchase 10 stocks" (after price query) → Auto-buys without confirmation, risking errors/misinterpretation.
 
 **With HITL**:
 
@@ -152,11 +143,9 @@ Realistic chatbot with tools: **get_stock_price** (API fetch) and **purchase_sto
 -   On "purchase 10 Apple": Triggers interrupt in purchase tool → "Approve buying 10 shares of Apple? Yes/No" → User "yes" → "Purchase successful"; "no" → "Declined".
     
     **Key Code Differences** (purchase tool node):
-    
 
-plaintextCopy
 
-```
+```python
 interrupt({
     "type": "approval",
     "reason": "stock_purchase",
@@ -176,6 +165,6 @@ else:
 
 HITL adds accountability/safety (e.g., prevents unapproved buys), stabilizing the system.
 
-Codes provided in description for replication (add Gradio UI via Streamlit optional).
+
 
 > **💡 Key Insight:** LangGraph's HITL is intuitive—interrupts pause/resume via checkpoints/commands, enabling seamless human-AI collaboration in any agentic workflow.
